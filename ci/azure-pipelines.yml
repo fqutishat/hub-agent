@@ -1,0 +1,44 @@
+# Copyright SecureKey Technologies Inc. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+
+name: $(SourceBranchName)-$(Date:yyyyMMdd).$(Rev:r)
+variables:
+  GO_VERSION: 1.13
+  GOPATH: $(Agent.BuildDirectory)/go
+
+  - job: Checks
+    pool:
+      vmImage: ubuntu-18.04
+    timeoutInMinutes: 30
+    steps:
+      - template: azp-dependencies.yml
+      - checkout: self
+      - script: make checks
+        displayName: Run checks
+
+
+  - job: Publish
+    dependsOn:
+      - Checks
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    pool:
+      vmImage: ubuntu-18.04
+    timeoutInMinutes: 30
+    steps:
+      - template: azp-dependencies.yml
+      - checkout: self
+      - bash: |
+          function logout {
+            docker logout
+          }
+          trap logout EXIT
+          source ci/version_var.sh
+          echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
+          make hub-agent-web-docker
+          docker tag trustbloc/hub-agent-web:latest  trustbloc/hub-agent-web:$SIDETREE_MOCK_TAG
+          docker push trustbloc/hub-agent-web:$HUB_AGENT_WEB_TAG
+        env:
+          DOCKER_USER: $(DOCKER_USER)
+          DOCKER_PASSWORD: $(DOCKER_PASSWORD)
