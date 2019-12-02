@@ -1,0 +1,25 @@
+#
+# Copyright SecureKey Technologies Inc. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+version: '2'
+
+services:
+
+  hub.agent.example.com:
+    container_name: hub.aries.example.com
+    image: ${AGENT_REST_IMAGE}:${ARCH}-${AGENT_REST_IMAGE_TAG}
+    environment:
+      - ARIESD_API_HOST=${HUB_AGENT_HOST}:${HUB_AGENT_API_PORT}
+      - ARIESD_INBOUND_HOST=${HUB_AGENT_HOST}:${HUB_AGENT_INBOUND_PORT}
+      - ARIESD_INBOUND_HOST_EXTERNAL=ws://hub.agent.example.com:${HUB_AGENT_INBOUND_PORT}
+      - ARIESD_DEFAULT_LABEL=hub-agent
+      - ARIESD_DB_PATH=${HUB_AGENT_DB_PATH}
+      - ARIESD_AUTO_ACCEPT=true
+      - ARIESD_OUTBOUND_TRANSPORT=http,ws
+      - ARIESD_INBOUND_TRANSPORT=ws
+    ports:
+      - ${HUB_AGENT_INBOUND_PORT}:${HUB_AGENT_INBOUND_PORT}
+      - ${HUB_AGENT_API_PORT}:${HUB_AGENT_API_PORT}
+    command: start
