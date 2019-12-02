@@ -5,6 +5,7 @@
 
 # Namespace for the hub agent web
 DOCKER_OUTPUT_NS          ?= trustbloc
+REPO_NAME                 ?= hub-agent
 HUB_AGENT_WEB_IMAGE_NAME  ?= hub-agent-web
 
 .PHONY: all
@@ -23,4 +24,4 @@ license:
 
 .PHONY: hub-agent-web-docker
 hub-agent-web-docker:
-	@docker build -f ./images/hub-agent-web/Dockerfile --no-cache -t $(DOCKER_OUTPUT_NS)/$(HUB_AGENT_WEB_IMAGE_NAME):latest .
+	@docker build -f ./images/hub-agent-web/Dockerfile --no-cache -t $(DOCKER_OUTPUT_NS)/$(REPO_NAME)/$(HUB_AGENT_WEB_IMAGE_NAME):latest .
