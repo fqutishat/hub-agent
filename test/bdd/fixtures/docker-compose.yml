@@ -23,3 +23,9 @@ services:
       - ${HUB_AGENT_INBOUND_PORT}:${HUB_AGENT_INBOUND_PORT}
       - ${HUB_AGENT_API_PORT}:${HUB_AGENT_API_PORT}
     command: start
+
+  hub.web.example.com:
+    container_name: hub.web.example.com
+    image: ${HUB_WEB_IMAGE}:latest
+    ports:
+      - 8080:8080
