@@ -4,7 +4,7 @@
 
 
 # Namespace for the hub agent web
-DOCKER_OUTPUT_NS          ?= trustbloc
+DOCKER_OUTPUT_NS          ?= docker.pkg.github.com/trustbloc
 REPO_NAME                 ?= hub-agent
 HUB_AGENT_WEB_IMAGE_NAME  ?= hub-agent-web
 

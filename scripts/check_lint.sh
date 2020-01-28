@@ -16,3 +16,4 @@ if [ ! $(command -v ${DOCKER_CMD}) ]; then
 fi
 
 ${DOCKER_CMD} run --rm -e GOPROXY=${GOPROXY} -v $(pwd):/opt/workspace -w /opt/workspace golangci/golangci-lint:v1.21 golangci-lint run
+${DOCKER_CMD} run --rm -v $(pwd):/opt/workspace -w /opt/workspace/cmd/hub-agent-web node:12.13.1-alpine3.10 /bin/sh -c "npm install;npm run lint"

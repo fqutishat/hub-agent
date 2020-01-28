@@ -7,3 +7,21 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/trustbloc/hub-agent)](https://goreportcard.com/report/github.com/trustbloc/hub-agent)
 
 # hub-agent
+
+Hub agent is a mediator in agent-to-agent message delivery that must be modeled by the sender. It has its 
+own keys and will deliver messages only after decrypting an outer envelope to reveal a forward request. It contains
+front end the communicate with rest api.
+
+# Components
+
+- [Hub Agent Web](docs/components/hub_agent_web.md)
+
+# Test
+
+- [Test](docs/test/test.md)
+
+## Contributing
+Thank you for your interest in contributing. Please see our [community contribution guidelines](https://github.com/trustbloc/community/blob/master/CONTRIBUTING.md) for more information.
+
+## License
+Apache License, Version 2.0 (Apache-2.0). See the [LICENSE](LICENSE) file.
